@@ -17,8 +17,10 @@ Start another `vagrant ssh` session and run `/vagrant/out-of-memory`
 
 ```
 $ vagarnt ssh
+```
 
-[vagrant@vagrant-centos65 ~]$ /vagrant/out-of-memory 
+```
+$ /vagrant/out-of-memory
 [0] malloc success
 [1] malloc success
 
