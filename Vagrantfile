@@ -16,7 +16,17 @@ sysctl -w vm.overcommit_ratio=99
 sysctl -w vm.swappiness=0
 RC_LOCAL
 
-yum install -y sysstat strace 
+cat << MYSQL >/etc/my.cnf
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+user=mysql
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+innodb_buffer_pool_size = 280M
+MYSQL
+
+yum install -y sysstat strace mysql mysql-server
 
 sysctl -w vm.overcommit_memory=2
 sysctl -w vm.overcommit_ratio=99

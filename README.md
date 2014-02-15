@@ -30,3 +30,29 @@ malloc failed: errno = 12, error = Cannot allocate memory
 pthread_create failed: errno = 11, error = Resource temporarily unavailable
 ```
 
+## Inspect MySQL _ERROR 1135 (HY000): Can't create a new thread (errno 11)_
+
+Start a `vagrant ssh` session
+
+```
+$ vagarnt ssh
+```
+
+Start mysqld
+
+```
+$ sudo /etc/init.d/mysqld start
+```
+
+Make many mysql connections.
+
+```
+$ for i in {0..100}; do mysql -e "select sleep(180)" & done;
+```
+
+If Commmited_AS reaches Commitlimit, the following error message appear.
+
+```
+ERROR 1135 (HY000): Can't create a new thread (errno 11); if you are not out of available memory, you can consult the manual for a possible OS-dependent bug
+```
+
