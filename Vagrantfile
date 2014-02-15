@@ -23,6 +23,10 @@ sysctl -w vm.overcommit_ratio=99
 sysctl -w vm.swappiness=0
 
 gcc -lpthread -std=gnu99 -W /vagrant/out-of-memory.c -o /vagrant/out-of-memory
+
+# swapon /mnt/swapfile
+dd if=/dev/zero of=/mnt/swapfile bs=1M count=500
+mkswap -f /mnt/swapfile
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
