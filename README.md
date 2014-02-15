@@ -46,7 +46,7 @@ Start mysqld
 $ sudo /etc/init.d/mysqld start
 ```
 
-Make many mysql connections.
+Create many mysql connections
 
 ```
 $ for i in {0..100}; do mysql -e "select sleep(180)" & done;
