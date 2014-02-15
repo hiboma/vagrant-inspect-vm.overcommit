@@ -16,6 +16,22 @@ void *thread_start(void *arg) {
     pause();
 }
 
+void print_proc_meminfo() {
+
+    char buffer[1024+1];
+    FILE *f = fopen("/proc/meminfo", "r");
+    if (!f) {
+        perror("fopen");
+        exit(EXIT_FAILURE);
+    }
+
+    while((fgets(buffer, 1024, f) != NULL)) {
+        buffer[strlen(buffer) -1] = '\0';
+        puts(buffer);
+    }
+    fclose(f);
+}
+
 int main(int argc, char *argv[]){
 
     size_t allocate_size = 1 * 1024 * 1024;
@@ -36,6 +52,7 @@ int main(int argc, char *argv[]){
             for( int i = 0; i < MAX_THREAD_SIZE; i++ ) {
                 if(pthread_create(&threads[i], NULL, NULL, thread_start)) {
                     fprintf(stderr, "pthread_create failed: errno = %d, error = %s\n", errno, strerror(errno));
+                    print_proc_meminfo();
                     exit(EXIT_FAILURE);
                 }
             }
